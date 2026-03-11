@@ -1,9 +1,9 @@
 # GSD State
 
 **Active Milestone:** M001 — HVAC After-Hours Voice Agent
-**Active Slice:** S03 — Conversation Controller, Prompts, and Safety Branch
-**Active Task:** T01 — pending
-**Phase:** S02 complete; ready to begin S03 implementation and safety-handoff proof work
+**Active Slice:** S03 — recovery / verification blocker
+**Active Task:** stabilize post-S03 verification before commit
+**Phase:** The required S03 durable artifacts are written and the roadmap is marked complete, but final completion is blocked because a fresh rerun exposed intermittent failure in `tests/test_intake_task.py::test_tentative_slot_requires_explicit_confirmation_before_completion` after the S03 changes.
 
 ## Recent Decisions
 
@@ -19,11 +19,17 @@
 - D017: Preserve S01 `SlotStatus.EMPTY/FILLED/CONFIRMED` as storage and expose S02 `missing/tentative/confirmed` semantics through `SlotTracker` helpers
 - D018: `IntakeTask` injects deterministic per-turn tool recommendations and reply requirements, and same-turn tentative values may not self-confirm
 - D019: Pytest loads `.env.local` first and then `.env` so the named S02 verification command can construct LiveKit inference models after secure local secret collection
+- D020: S03 safety proof must assert a real `agent_handoff` event plus safety-response intent
+- D021: S03 controller should expose inspectable current mode, latest classification, handoff reason, and completed-intake summary state
+- D022: LiveKit handoff events are emitted reliably when a function tool returns the replacement `Agent`
+- D023: Console/eval text turns must be routed in `HVACConversationController.llm_node(...)` because `AgentSession.run(...)` bypasses `on_user_turn_completed`
+- D024: `src/agent.py` uses `build_runtime_agent()` so validated config loading and controller composition stay separate from later lifecycle wiring
 
 ## Blockers
 
-- None.
+- `tests/test_intake_task.py::test_tentative_slot_requires_explicit_confirmation_before_completion` is flaky on fresh reruns: observed second-turn tool sequences included `confirm_slot + record_slot_candidate + complete_intake`, `confirm_slot + confirm_slot + complete_intake`, and at least one run with no function-call events before the assistant message.
+- Because the named slice verification command is not durably green, `git commit -m 'feat(gsd): complete S03'` is blocked for now.
 
 ## Next Action
 
-Start S03 by wiring `IntakeTask` into the real HVAC conversation controller, adding prompts/opening flow, and proving immediate safety handoff behavior against the now-green S02 proof boundary (`tests/test_slot_filling.py`, `tests/test_intake_task.py`).
+Investigate and stabilize the `IntakeTask` tentative-confirmation path, then rerun the full S03 verification gate before committing. Do not start S04 yet.

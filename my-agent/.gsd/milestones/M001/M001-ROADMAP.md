@@ -60,7 +60,7 @@ This milestone is complete only when all are true:
 - [x] **S02: Slot-Filling Intake and Background Classification** `risk:high` `depends:[S01]`
   > After this: `IntakeTask` (AgentTask) collects all required slots adaptively via function tools; slot tracker correctly transitions missing→tentative→confirmed; live classifier detects danger and urgency signals; eval tests prove multi-turn slot filling works and tentative slots get confirmed.
 
-- [ ] **S03: Conversation Controller, Prompts, and Safety Branch** `risk:high` `depends:[S02]`
+- [x] **S03: Conversation Controller, Prompts, and Safety Branch** `risk:high` `depends:[S02]`
   > After this: Full conversation runs end-to-end in console mode: opening greeting, adaptive intake, safety branch handoff when danger detected, clean call closing; eval tests assert safety handoff triggers on danger keywords.
 
 - [ ] **S04: GoHighLevel CRM and SMS Alert Integrations** `risk:medium` `depends:[S01]`

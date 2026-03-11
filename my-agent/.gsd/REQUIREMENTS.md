@@ -12,7 +12,7 @@ This file is the explicit capability and coverage contract for the project.
 - Source: user
 - Primary owning slice: M001/S03
 - Supporting slices: M001/S01, M001/S02
-- Validation: unmapped
+- Validation: `uv run pytest tests/test_prompts.py tests/test_conversation_controller.py tests/test_agent.py tests/test_intake_task.py` — proves the HVAC controller opens as the after-hours line, continues adaptive intake through `IntakeTask`, and closes only after required details are captured
 - Notes: Slot-filling must not over-skip on weak extraction; confirmation required for tentative slots.
 
 ### R002 — Adaptive Slot-Filling Conversation
@@ -34,7 +34,7 @@ This file is the explicit capability and coverage contract for the project.
 - Source: user
 - Primary owning slice: M001/S03
 - Supporting slices: M001/S01, M001/S02
-- Validation: unmapped
+- Validation: `uv run pytest tests/test_conversation_controller.py` — proves danger keywords trigger an explicit LiveKit `agent_handoff` to `SafetyAgent` and a safety-first reply with emergency guidance before minimal intake capture
 - Notes: Safety must interrupt the normal intake flow, not wait for it to finish.
 
 ### R004 — Background Classification
@@ -188,9 +188,9 @@ This file is the explicit capability and coverage contract for the project.
 
 | ID | Class | Status | Primary owner | Supporting | Proof |
 |---|---|---|---|---|---|
-| R001 | primary-user-loop | active | M001/S03 | S01, S02 | unmapped |
+| R001 | primary-user-loop | active | M001/S03 | S01, S02 | `uv run pytest tests/test_prompts.py tests/test_conversation_controller.py tests/test_agent.py tests/test_intake_task.py` — after-hours HVAC greeting, adaptive intake continuation through the controller, and clean close after required slot capture |
 | R002 | core-capability | active | M001/S02 | S03 | `uv run pytest tests/test_slot_filling.py tests/test_intake_task.py` — slot-state semantics, adaptive multi-turn collection, tentative confirmation, guarded completion |
-| R003 | core-capability | active | M001/S03 | S01, S02 | unmapped |
+| R003 | core-capability | active | M001/S03 | S01, S02 | `uv run pytest tests/test_conversation_controller.py` — explicit safety handoff event plus emergency-first guidance on danger keywords |
 | R004 | core-capability | active | M001/S02 | S04 | `uv run pytest tests/test_slot_filling.py tests/test_intake_task.py` — deterministic live classification for danger, urgency, category, and address relevance |
 | R005 | integration | active | M001/S04 | S05 | unmapped |
 | R006 | integration | active | M001/S04 | none | unmapped |
@@ -209,5 +209,5 @@ This file is the explicit capability and coverage contract for the project.
 
 - Active requirements: 10
 - Mapped to slices: 10
-- Validated: 2
+- Validated: 4
 - Unmapped active requirements: 0

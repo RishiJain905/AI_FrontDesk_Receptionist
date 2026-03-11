@@ -76,6 +76,7 @@ class IntakeTask(AgentTask[IntakeTaskResult]):
         tracker: SlotTracker | None = None,
         classifier: LiveClassifier | None = None,
         mode: IntakeMode = IntakeMode.NORMAL,
+        chat_ctx: llm.ChatContext | None = None,
     ) -> None:
         self._classifier = classifier or LiveClassifier()
         self._mode = mode
@@ -84,7 +85,7 @@ class IntakeTask(AgentTask[IntakeTaskResult]):
         self._latest_user_turn = ""
         self._classification = self._classifier.classify("")
         self._completion_requested = False
-        super().__init__(instructions=self._build_instructions())
+        super().__init__(instructions=self._build_instructions(), chat_ctx=chat_ctx)
 
     async def on_user_turn_completed(
         self,
@@ -374,7 +375,8 @@ Required content for your next assistant message after tool calls:
         current_issue = snapshot.get("issue_category")
         turn_classification = self._classifier.classify(transcript)
         if (
-            turn_classification.issue_category != IssueCategory.OTHER
+            turn_classification.danger_type == DangerType.NONE
+            and turn_classification.issue_category != IssueCategory.OTHER
             and turn_classification.matched_keywords
             and not (
                 current_issue
