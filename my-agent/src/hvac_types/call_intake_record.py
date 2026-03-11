@@ -34,6 +34,8 @@ class CallIntakeRecord:
     has_pets: bool | None = None
     is_someone_home: bool | None = None
     callback_requested: bool | None = None
+    callback_number_confirmed: bool | None = None
+    caller_id: str | None = None
     callback_time: str | None = None
     customer_type: str | None = None
 

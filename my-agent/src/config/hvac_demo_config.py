@@ -9,6 +9,8 @@ HVAC_DEMO_CONFIG = BusinessConfig(
     business_phone="+1-416-555-0100",
     owner_phone="+1-416-555-0110",
     timezone="America/Toronto",
+    after_hours_start="17:00",
+    after_hours_end="09:00",
     service_area="Greater Toronto Area",
     emergency_instructions=(
         "If there is a gas smell, carbon monoxide alarm, smoke, sparks, or active flooding, "

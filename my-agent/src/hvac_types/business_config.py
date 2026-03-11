@@ -19,6 +19,8 @@ class BusinessConfig:
     timezone: str | None = None
     service_area: str | None = None
     emergency_instructions: str | None = None
+    after_hours_start: str | None = None
+    after_hours_end: str | None = None
 
     safety_keywords: list[str] = field(default_factory=list)
     no_heat_keywords: list[str] = field(default_factory=list)

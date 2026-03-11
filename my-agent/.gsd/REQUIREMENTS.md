@@ -78,7 +78,7 @@ This file is the explicit capability and coverage contract for the project.
 - Source: user
 - Primary owning slice: M001/S05
 - Supporting slices: none
-- Validation: unmapped
+- Validation: `uv run pytest tests/test_after_hours_gate.py tests/test_agent.py tests/test_types.py` — proves timezone-safe same-day/overnight gate math (including midnight boundaries), strict config window validation, and real entrypoint gate wiring with graceful outside-hours behavior
 - Notes: Time comparison must be timezone-aware and correct across midnight (overnight window spanning two calendar days).
 
 ### R008 — Config-Driven Business Settings
@@ -100,7 +100,7 @@ This file is the explicit capability and coverage contract for the project.
 - Source: user
 - Primary owning slice: M001/S05
 - Supporting slices: M001/S04
-- Validation: unmapped
+- Validation: `uv run pytest tests/test_call_lifecycle.py tests/test_agent.py` — proves partial finalization, finalize-once idempotence, caller-ID fallback with `callback_number_confirmed=false`, and CRM/SMS failure isolation during runtime wiring
 - Notes: Finalization must be idempotent where practical.
 
 ### R010 — Test Coverage
@@ -194,9 +194,9 @@ This file is the explicit capability and coverage contract for the project.
 | R004 | core-capability | active | M001/S02 | S04 | `uv run pytest tests/test_slot_filling.py tests/test_intake_task.py` — deterministic live classification for danger, urgency, category, and address relevance |
 | R005 | integration | active | M001/S04 | S05 | `uv run pytest tests/test_ghl_service.py tests/test_sms_service.py tests/test_phone_utils.py tests/test_types.py` — deterministic GoHighLevel contact upsert/note attachment with exact normalized-phone matching and typed CRM failure diagnostics |
 | R006 | integration | active | M001/S04 | none | `uv run pytest tests/test_ghl_service.py tests/test_sms_service.py tests/test_phone_utils.py tests/test_types.py` — concise Twilio owner alert send/skip behavior, Basic Auth request shape, and typed SMS failure diagnostics |
-| R007 | core-capability | active | M001/S05 | none | unmapped |
+| R007 | core-capability | active | M001/S05 | none | `uv run pytest tests/test_after_hours_gate.py tests/test_agent.py tests/test_types.py` — timezone-safe gate math across midnight, strict after-hours config validation, and entrypoint gate wiring |
 | R008 | quality-attribute | active | M001/S01 | all | `tests/test_types.py` config contract + loader validation (partial) |
-| R009 | failure-visibility | active | M001/S05 | S04 | unmapped |
+| R009 | failure-visibility | active | M001/S05 | S04 | `uv run pytest tests/test_call_lifecycle.py tests/test_agent.py` — partial-call finalize path, caller-ID fallback semantics, finalize-once guard, and CRM/SMS failure isolation |
 | R010 | quality-attribute | active | M001/S06 | all | unmapped |
 | R020 | integration | deferred | none | none | unmapped |
 | R021 | core-capability | deferred | none | none | unmapped |
@@ -209,5 +209,5 @@ This file is the explicit capability and coverage contract for the project.
 
 - Active requirements: 10
 - Mapped to slices: 10
-- Validated: 6
+- Validated: 8
 - Unmapped active requirements: 0
