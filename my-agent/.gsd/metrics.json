@@ -1,0 +1,150 @@
+{
+  "version": 1,
+  "projectStartedAt": 1773259435246,
+  "units": [
+    {
+      "type": "research-slice",
+      "id": "M001/S01",
+      "model": "gemini-3.1-pro-high",
+      "startedAt": 1773259435298,
+      "finishedAt": 1773259603353,
+      "tokens": {
+        "input": 21,
+        "output": 6056,
+        "cacheRead": 781751,
+        "cacheWrite": 45996,
+        "total": 833824
+      },
+      "cost": 0,
+      "toolCalls": 0,
+      "assistantMessages": 19,
+      "userMessages": 0
+    },
+    {
+      "type": "plan-slice",
+      "id": "M001/S01",
+      "model": "claude-opus-4-6-thinking",
+      "startedAt": 1773259603354,
+      "finishedAt": 1773259886250,
+      "tokens": {
+        "input": 217548,
+        "output": 10770,
+        "cacheRead": 2429049,
+        "cacheWrite": 0,
+        "total": 2657367
+      },
+      "cost": 1.0501458,
+      "toolCalls": 0,
+      "assistantMessages": 63,
+      "userMessages": 0
+    },
+    {
+      "type": "execute-task",
+      "id": "M001/S01/T01",
+      "model": "claude-opus-4-6-thinking",
+      "startedAt": 1773259886252,
+      "finishedAt": 1773259894206,
+      "tokens": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0
+      },
+      "cost": 0,
+      "toolCalls": 0,
+      "assistantMessages": 1,
+      "userMessages": 0
+    },
+    {
+      "type": "execute-task",
+      "id": "M001/S01/T01",
+      "model": "claude-opus-4-6-thinking",
+      "startedAt": 1773259894207,
+      "finishedAt": 1773259902203,
+      "tokens": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0
+      },
+      "cost": 0,
+      "toolCalls": 0,
+      "assistantMessages": 1,
+      "userMessages": 0
+    },
+    {
+      "type": "execute-task",
+      "id": "M001/S01/T01",
+      "model": "claude-opus-4-6-thinking",
+      "startedAt": 1773260000809,
+      "finishedAt": 1773260009333,
+      "tokens": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0
+      },
+      "cost": 0,
+      "toolCalls": 0,
+      "assistantMessages": 1,
+      "userMessages": 0
+    },
+    {
+      "type": "execute-task",
+      "id": "M001/S01/T01",
+      "model": "claude-opus-4-6-thinking",
+      "startedAt": 1773260009334,
+      "finishedAt": 1773260017361,
+      "tokens": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0
+      },
+      "cost": 0,
+      "toolCalls": 0,
+      "assistantMessages": 1,
+      "userMessages": 0
+    },
+    {
+      "type": "execute-task",
+      "id": "M001/S01/T02",
+      "model": "gpt-5.3-codex",
+      "startedAt": 1773261247482,
+      "finishedAt": 1773261310737,
+      "tokens": {
+        "input": 24453,
+        "output": 2529,
+        "cacheRead": 345984,
+        "cacheWrite": 0,
+        "total": 372966
+      },
+      "cost": 0,
+      "toolCalls": 0,
+      "assistantMessages": 17,
+      "userMessages": 0
+    },
+    {
+      "type": "execute-task",
+      "id": "M001/S01/T03",
+      "model": "gpt-5.3-codex",
+      "startedAt": 1773261310741,
+      "finishedAt": 1773261547469,
+      "tokens": {
+        "input": 54812,
+        "output": 8914,
+        "cacheRead": 1560832,
+        "cacheWrite": 0,
+        "total": 1624558
+      },
+      "cost": 0,
+      "toolCalls": 0,
+      "assistantMessages": 45,
+      "userMessages": 0
+    }
+  ]
+}
