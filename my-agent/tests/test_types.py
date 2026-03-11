@@ -234,6 +234,29 @@ class TestCallIntakeRecord:
         assert record.callback_requested is None
         assert record.summary is None
         assert record.notes is None
+        assert record.callback_time is None
+        assert record.customer_type is None
+        assert record.transcript is None
+        assert record.ai_summary is None
+        assert record.notify_owner is None
+        assert record.sms_sent is None
+
+    def test_accepts_optional_integration_fields(self):
+        record = CallIntakeRecord(
+            callback_time="Tomorrow after 8 AM",
+            customer_type="existing",
+            transcript="Caller says the furnace stopped overnight.",
+            ai_summary="Existing customer with an urgent no-heat outage.",
+            notify_owner=True,
+            sms_sent=False,
+        )
+
+        assert record.callback_time == "Tomorrow after 8 AM"
+        assert record.customer_type == "existing"
+        assert record.transcript == "Caller says the furnace stopped overnight."
+        assert record.ai_summary == "Existing customer with an urgent no-heat outage."
+        assert record.notify_owner is True
+        assert record.sms_sent is False
 
 
 class TestSlotState:

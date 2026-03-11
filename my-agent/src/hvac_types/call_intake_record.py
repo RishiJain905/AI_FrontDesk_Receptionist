@@ -34,6 +34,12 @@ class CallIntakeRecord:
     has_pets: bool | None = None
     is_someone_home: bool | None = None
     callback_requested: bool | None = None
+    callback_time: str | None = None
+    customer_type: str | None = None
 
     summary: str | None = None
     notes: str | None = None
+    transcript: str | None = None
+    ai_summary: str | None = None
+    notify_owner: bool | None = None
+    sms_sent: bool | None = None

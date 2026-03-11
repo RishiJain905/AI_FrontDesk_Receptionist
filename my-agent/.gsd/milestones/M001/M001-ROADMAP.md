@@ -63,7 +63,7 @@ This milestone is complete only when all are true:
 - [x] **S03: Conversation Controller, Prompts, and Safety Branch** `risk:high` `depends:[S02]`
   > After this: Full conversation runs end-to-end in console mode: opening greeting, adaptive intake, safety branch handoff when danger detected, clean call closing; eval tests assert safety handoff triggers on danger keywords.
 
-- [ ] **S04: GoHighLevel CRM and SMS Alert Integrations** `risk:medium` `depends:[S01]`
+- [x] **S04: GoHighLevel CRM and SMS Alert Integrations** `risk:medium` `depends:[S01]`
   > After this: `GoHighLevelService` creates/updates contacts and attaches structured notes; `SmsService` sends concise owner alerts; both are isolated from each other's failures; integration tests assert correct payload shape (can use mock HTTP for CI).
 
 - [ ] **S05: Call Lifecycle Orchestration and After-Hours Gate** `risk:medium` `depends:[S02,S03,S04]`

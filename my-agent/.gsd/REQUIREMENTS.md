@@ -56,7 +56,7 @@ This file is the explicit capability and coverage contract for the project.
 - Source: user
 - Primary owning slice: M001/S04
 - Supporting slices: M001/S05
-- Validation: unmapped
+- Validation: `uv run pytest tests/test_ghl_service.py tests/test_sms_service.py tests/test_phone_utils.py tests/test_types.py` — proves deterministic GoHighLevel contact payload mapping, exact normalized-phone create/update decisions, structured note attachment, and typed CRM failure diagnostics via mock HTTP transport
 - Notes: CRM failures must not crash the voice session. Log clearly for retry.
 
 ### R006 — SMS Owner Alert
@@ -67,7 +67,7 @@ This file is the explicit capability and coverage contract for the project.
 - Source: user
 - Primary owning slice: M001/S04
 - Supporting slices: none
-- Validation: unmapped
+- Validation: `uv run pytest tests/test_ghl_service.py tests/test_sms_service.py tests/test_phone_utils.py tests/test_types.py` — proves concise owner-alert formatting, notify_owner/sms_sent skip rules, Twilio Basic Auth form-post request shape, and typed SMS failure diagnostics via mock HTTP transport
 - Notes: SMS failure must not block CRM write. No duplicate alerts per finalized call.
 
 ### R007 — After-Hours Gate
@@ -192,8 +192,8 @@ This file is the explicit capability and coverage contract for the project.
 | R002 | core-capability | active | M001/S02 | S03 | `uv run pytest tests/test_slot_filling.py tests/test_intake_task.py` — slot-state semantics, adaptive multi-turn collection, tentative confirmation, guarded completion |
 | R003 | core-capability | active | M001/S03 | S01, S02 | `uv run pytest tests/test_conversation_controller.py` — explicit safety handoff event plus emergency-first guidance on danger keywords |
 | R004 | core-capability | active | M001/S02 | S04 | `uv run pytest tests/test_slot_filling.py tests/test_intake_task.py` — deterministic live classification for danger, urgency, category, and address relevance |
-| R005 | integration | active | M001/S04 | S05 | unmapped |
-| R006 | integration | active | M001/S04 | none | unmapped |
+| R005 | integration | active | M001/S04 | S05 | `uv run pytest tests/test_ghl_service.py tests/test_sms_service.py tests/test_phone_utils.py tests/test_types.py` — deterministic GoHighLevel contact upsert/note attachment with exact normalized-phone matching and typed CRM failure diagnostics |
+| R006 | integration | active | M001/S04 | none | `uv run pytest tests/test_ghl_service.py tests/test_sms_service.py tests/test_phone_utils.py tests/test_types.py` — concise Twilio owner alert send/skip behavior, Basic Auth request shape, and typed SMS failure diagnostics |
 | R007 | core-capability | active | M001/S05 | none | unmapped |
 | R008 | quality-attribute | active | M001/S01 | all | `tests/test_types.py` config contract + loader validation (partial) |
 | R009 | failure-visibility | active | M001/S05 | S04 | unmapped |
@@ -209,5 +209,5 @@ This file is the explicit capability and coverage contract for the project.
 
 - Active requirements: 10
 - Mapped to slices: 10
-- Validated: 4
+- Validated: 6
 - Unmapped active requirements: 0
