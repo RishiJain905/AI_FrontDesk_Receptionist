@@ -10,14 +10,17 @@ A caller phones after hours. The agent answers naturally, captures only the need
 
 ## Current State
 
-M001 is in progress with **S01 complete**. The project now has core HVAC data/config contracts in place:
+M001 is in progress with **S01 and S02 complete**. The project now has both the HVAC contract layer and the adaptive intake/runtime proof boundary in place:
 
 - `src/hvac_types/` package with classification enums, slot state types, `BusinessConfig`, and `CallIntakeRecord`
 - `src/config/hvac_demo_config.py` default profile (`HVAC_DEMO_CONFIG`)
 - `src/config/load_config.py` fail-fast required-field validation (`business_name`, `timezone`, `owner_phone`)
-- contract test coverage in `tests/test_types.py`
+- `src/conversation/slot_tracker.py` and `src/conversation/intake_policy.py` for deterministic slot semantics and required-slot policy
+- `src/classification/rules.py` and `src/classification/live_classifier.py` for config-driven live danger/urgency/category/address-relevance detection
+- `src/conversation/intake_task.py` for tool-driven multi-turn intake with guarded completion
+- proof coverage in `tests/test_types.py`, `tests/test_slot_filling.py`, and `tests/test_intake_task.py`
 
-`src/agent.py` is still the generic LiveKit starter and runtime HVAC conversational behavior/integrations are not yet wired (planned in S02-S05).
+`src/agent.py` is still the generic LiveKit starter and the full HVAC conversation controller, safety handoff, CRM/SMS integrations, and after-hours orchestration remain for S03-S05.
 
 ## Architecture / Key Patterns
 
@@ -37,4 +40,4 @@ See `.gsd/REQUIREMENTS.md` for the explicit capability contract, requirement sta
 
 ## Milestone Sequence
 
-- [ ] M001: HVAC After-Hours Voice Agent — In progress (S01 complete): remaining work is slot-filling intake, safety branch, GoHighLevel CRM integration, SMS alerting, after-hours gate, and demo wiring
+- [ ] M001: HVAC After-Hours Voice Agent — In progress (S01-S02 complete): remaining work is safety-branch conversation control, GoHighLevel CRM integration, SMS alerting, after-hours gate/lifecycle wiring, and final demo readiness

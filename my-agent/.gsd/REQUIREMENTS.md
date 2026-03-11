@@ -23,7 +23,7 @@ This file is the explicit capability and coverage contract for the project.
 - Source: user
 - Primary owning slice: M001/S02
 - Supporting slices: M001/S03
-- Validation: unmapped
+- Validation: `uv run pytest tests/test_slot_filling.py tests/test_intake_task.py` — proves SlotTracker state transitions, required-slot completion guards, adaptive multi-turn intake, and explicit confirmation of tentative values before completion
 - Notes: Critical skip rule — must not close early unless all required slots are confirmed.
 
 ### R003 — Safety / Emergency Branch
@@ -45,7 +45,7 @@ This file is the explicit capability and coverage contract for the project.
 - Source: user
 - Primary owning slice: M001/S02
 - Supporting slices: M001/S04
-- Validation: unmapped
+- Validation: `uv run pytest tests/test_slot_filling.py tests/test_intake_task.py` — proves deterministic live danger/urgency/category/address-relevance classification and its use inside the intake task boundary
 - Notes: Classification must not live only in prompt text — must be implemented as code logic.
 
 ### R005 — GoHighLevel CRM Integration
@@ -189,9 +189,9 @@ This file is the explicit capability and coverage contract for the project.
 | ID | Class | Status | Primary owner | Supporting | Proof |
 |---|---|---|---|---|---|
 | R001 | primary-user-loop | active | M001/S03 | S01, S02 | unmapped |
-| R002 | core-capability | active | M001/S02 | S03 | unmapped |
+| R002 | core-capability | active | M001/S02 | S03 | `uv run pytest tests/test_slot_filling.py tests/test_intake_task.py` — slot-state semantics, adaptive multi-turn collection, tentative confirmation, guarded completion |
 | R003 | core-capability | active | M001/S03 | S01, S02 | unmapped |
-| R004 | core-capability | active | M001/S02 | S04 | unmapped |
+| R004 | core-capability | active | M001/S02 | S04 | `uv run pytest tests/test_slot_filling.py tests/test_intake_task.py` — deterministic live classification for danger, urgency, category, and address relevance |
 | R005 | integration | active | M001/S04 | S05 | unmapped |
 | R006 | integration | active | M001/S04 | none | unmapped |
 | R007 | core-capability | active | M001/S05 | none | unmapped |
@@ -209,5 +209,5 @@ This file is the explicit capability and coverage contract for the project.
 
 - Active requirements: 10
 - Mapped to slices: 10
-- Validated: 0
+- Validated: 2
 - Unmapped active requirements: 0

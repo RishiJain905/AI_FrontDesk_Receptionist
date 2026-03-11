@@ -57,7 +57,7 @@ This milestone is complete only when all are true:
 - [x] **S01: Core Types, Config, and Data Model** `risk:low` `depends:[]`
   > After this: The full data contract (`CallIntakeRecord`, `BusinessConfig`, slot types, classification types) and `hvac_demo_config.py` exist and are importable; config loader validates required fields.
 
-- [ ] **S02: Slot-Filling Intake and Background Classification** `risk:high` `depends:[S01]`
+- [x] **S02: Slot-Filling Intake and Background Classification** `risk:high` `depends:[S01]`
   > After this: `IntakeTask` (AgentTask) collects all required slots adaptively via function tools; slot tracker correctly transitions missing→tentative→confirmed; live classifier detects danger and urgency signals; eval tests prove multi-turn slot filling works and tentative slots get confirmed.
 
 - [ ] **S03: Conversation Controller, Prompts, and Safety Branch** `risk:high` `depends:[S02]`

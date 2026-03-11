@@ -163,6 +163,240 @@
       "toolCalls": 0,
       "assistantMessages": 24,
       "userMessages": 0
+    },
+    {
+      "type": "reassess-roadmap",
+      "id": "M001/S01",
+      "model": "gpt-5.3-codex",
+      "startedAt": 1773261744932,
+      "finishedAt": 1773261783585,
+      "tokens": {
+        "input": 26263,
+        "output": 2019,
+        "cacheRead": 25088,
+        "cacheWrite": 0,
+        "total": 53370
+      },
+      "cost": 0,
+      "toolCalls": 0,
+      "assistantMessages": 2,
+      "userMessages": 0
+    },
+    {
+      "type": "research-slice",
+      "id": "M001/S02",
+      "model": "claude-sonnet-4-6",
+      "startedAt": 1773261783586,
+      "finishedAt": 1773262122475,
+      "tokens": {
+        "input": 76431,
+        "output": 11848,
+        "cacheRead": 2526336,
+        "cacheWrite": 0,
+        "total": 2614615
+      },
+      "cost": 0,
+      "toolCalls": 0,
+      "assistantMessages": 54,
+      "userMessages": 0
+    },
+    {
+      "type": "plan-slice",
+      "id": "M001/S02",
+      "model": "claude-opus-4-6-thinking",
+      "startedAt": 1773262234642,
+      "finishedAt": 1773262332042,
+      "tokens": {
+        "input": 35469,
+        "output": 5526,
+        "cacheRead": 213120,
+        "cacheWrite": 0,
+        "total": 254115
+      },
+      "cost": 0,
+      "toolCalls": 0,
+      "assistantMessages": 7,
+      "userMessages": 0
+    },
+    {
+      "type": "execute-task",
+      "id": "M001/S02/T01",
+      "model": "claude-opus-4-6-thinking",
+      "startedAt": 1773262332044,
+      "finishedAt": 1773262340227,
+      "tokens": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0
+      },
+      "cost": 0,
+      "toolCalls": 0,
+      "assistantMessages": 1,
+      "userMessages": 0
+    },
+    {
+      "type": "execute-task",
+      "id": "M001/S02/T01",
+      "model": "claude-opus-4-6-thinking",
+      "startedAt": 1773262340228,
+      "finishedAt": 1773262348381,
+      "tokens": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0
+      },
+      "cost": 0,
+      "toolCalls": 0,
+      "assistantMessages": 1,
+      "userMessages": 0
+    },
+    {
+      "type": "execute-task",
+      "id": "M001/S02/T01",
+      "model": "gpt-5.4",
+      "startedAt": 1773262400920,
+      "finishedAt": 1773262409042,
+      "tokens": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0
+      },
+      "cost": 0,
+      "toolCalls": 0,
+      "assistantMessages": 1,
+      "userMessages": 0
+    },
+    {
+      "type": "execute-task",
+      "id": "M001/S02/T01",
+      "model": "gpt-5.4",
+      "startedAt": 1773262409042,
+      "finishedAt": 1773262564067,
+      "tokens": {
+        "input": 124930,
+        "output": 6607,
+        "cacheRead": 874240,
+        "cacheWrite": 0,
+        "total": 1005777
+      },
+      "cost": 0,
+      "toolCalls": 0,
+      "assistantMessages": 30,
+      "userMessages": 0
+    },
+    {
+      "type": "execute-task",
+      "id": "M001/S02/T02",
+      "model": "gpt-5.4",
+      "startedAt": 1773262564068,
+      "finishedAt": 1773262831057,
+      "tokens": {
+        "input": 140312,
+        "output": 11149,
+        "cacheRead": 1915008,
+        "cacheWrite": 0,
+        "total": 2066469
+      },
+      "cost": 0,
+      "toolCalls": 0,
+      "assistantMessages": 38,
+      "userMessages": 0
+    },
+    {
+      "type": "execute-task",
+      "id": "M001/S02/T03",
+      "model": "gpt-5.4",
+      "startedAt": 1773262831060,
+      "finishedAt": 1773263431406,
+      "tokens": {
+        "input": 162839,
+        "output": 13861,
+        "cacheRead": 792192,
+        "cacheWrite": 0,
+        "total": 968892
+      },
+      "cost": 0,
+      "toolCalls": 0,
+      "assistantMessages": 22,
+      "userMessages": 0
+    },
+    {
+      "type": "execute-task",
+      "id": "M001/S02/T03",
+      "model": "gpt-5.4",
+      "startedAt": 1773262831060,
+      "finishedAt": 1773264031718,
+      "tokens": {
+        "input": 295375,
+        "output": 31177,
+        "cacheRead": 5750656,
+        "cacheWrite": 0,
+        "total": 6077208
+      },
+      "cost": 0,
+      "toolCalls": 0,
+      "assistantMessages": 83,
+      "userMessages": 0
+    },
+    {
+      "type": "execute-task",
+      "id": "M001/S02/T03",
+      "model": "gpt-5.4",
+      "startedAt": 1773262831060,
+      "finishedAt": 1773264174549,
+      "tokens": {
+        "input": 321510,
+        "output": 32852,
+        "cacheRead": 6396032,
+        "cacheWrite": 0,
+        "total": 6750394
+      },
+      "cost": 0,
+      "toolCalls": 0,
+      "assistantMessages": 90,
+      "userMessages": 0
+    },
+    {
+      "type": "execute-task",
+      "id": "M001/S02/T03",
+      "model": "gpt-5.4",
+      "startedAt": 1773264174552,
+      "finishedAt": 1773264504664,
+      "tokens": {
+        "input": 136441,
+        "output": 8308,
+        "cacheRead": 769152,
+        "cacheWrite": 0,
+        "total": 913901
+      },
+      "cost": 0,
+      "toolCalls": 0,
+      "assistantMessages": 22,
+      "userMessages": 0
+    },
+    {
+      "type": "execute-task",
+      "id": "M001/S02/T04",
+      "model": "gpt-5.4",
+      "startedAt": 1773264504666,
+      "finishedAt": 1773264751897,
+      "tokens": {
+        "input": 159798,
+        "output": 6214,
+        "cacheRead": 888064,
+        "cacheWrite": 0,
+        "total": 1054076
+      },
+      "cost": 0,
+      "toolCalls": 0,
+      "assistantMessages": 24,
+      "userMessages": 0
     }
   ]
 }

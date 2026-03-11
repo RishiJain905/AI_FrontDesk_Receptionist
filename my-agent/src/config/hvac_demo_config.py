@@ -33,8 +33,10 @@ HVAC_DEMO_CONFIG = BusinessConfig(
     ],
     no_cool_keywords=[
         "no cool",
+        "no cooling",
         "ac not working",
         "air conditioner not cooling",
+        "air conditioning not working",
         "warm air",
     ],
     dispatcher_contacts=[
