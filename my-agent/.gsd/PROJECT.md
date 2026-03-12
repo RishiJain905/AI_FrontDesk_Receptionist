@@ -2,50 +2,38 @@
 
 ## What This Is
 
-HVAC After-Hours Voice Intake Agent — a production-oriented voice AI agent built on LiveKit Cloud that answers a Canadian HVAC business phone line during after-hours (5 PM – 9 AM), captures structured caller intake details through adaptive slot-filling conversation, detects dangerous situations, classifies urgency in the background, writes structured records into GoHighLevel CRM, and sends SMS alerts when escalation rules match.
+HVAC After-Hours Voice Intake Agent — a production-oriented LiveKit voice agent for after-hours (5 PM–9 AM) HVAC intake. It captures structured caller details via adaptive slot-filling, escalates immediately on danger signals, persists call outcomes to GoHighLevel, and sends owner SMS alerts when escalation rules match.
 
 ## Core Value
 
-A caller phones after hours. The agent answers naturally, captures only the needed information, adapts if the caller already gave details, detects emergencies and safety hazards immediately, and ends cleanly — then writes the structured call record into GoHighLevel and alerts the owner when escalation rules match.
+After-hours callers get a natural, safety-aware intake flow that avoids repetitive questioning, while the business receives structured CRM records (complete or partial calls) and timely owner alerts for urgent/safety scenarios.
 
 ## Current State
 
-M001 is in progress with **S01, S02, S03, S04, and S05 complete**. The project now has the HVAC contract layer, deterministic adaptive intake runtime, the real after-hours conversation controller, provider-backed CRM/SMS integration boundaries, and a wired post-call lifecycle/orchestration runtime:
+**All M001 implementation slices (S01–S06) are complete.**
 
-- `src/hvac_types/` package with classification enums, slot state types, `BusinessConfig`, and enriched `CallIntakeRecord` finalized-call fields
-- `src/config/hvac_demo_config.py` default profile (`HVAC_DEMO_CONFIG`)
-- `src/config/load_config.py` fail-fast required-field validation (`business_name`, `timezone`, `owner_phone`)
-- `src/conversation/slot_tracker.py` and `src/conversation/intake_policy.py` for deterministic slot semantics and required-slot policy
-- `src/classification/rules.py` and `src/classification/live_classifier.py` for config-driven live danger/urgency/category/address-relevance detection
-- `src/conversation/intake_task.py` for tool-driven multi-turn intake with guarded completion
-- `src/conversation/prompts.py` for deterministic after-hours/safety/closing prompt surfaces
-- `src/conversation/conversation_controller.py` for `HVACConversationController`, `HVACIntakeAgent`, `SafetyAgent`, explicit danger handoff, and inspectable controller diagnostics
-- `src/services/crm/` with `CrmService`, deterministic GoHighLevel mappers, and `GoHighLevelService` search/create/update/note flow
-- `src/services/alerts/` with `AlertService`, concise owner-alert formatting, and `TwilioSmsService` send/skip/error handling
-- `src/utils/phone.py` and `src/utils/errors.py` for shared number normalization and redacted typed integration diagnostics
-- `src/orchestration/after_hours_gate.py` provides timezone-safe same-day/overnight gate decisions from config windows
-- `src/orchestration/call_lifecycle.py` finalizes calls once, assembles transcripts, applies caller-ID fallback semantics, and runs CRM/SMS boundaries independently with snapshot diagnostics
-- `src/agent.py` now composes dotenv loading, after-hours gate evaluation, lifecycle attachment, provider composition/fallback, and startup greeting generation around `AgentSession`
-- proof coverage in `tests/test_types.py`, `tests/test_slot_filling.py`, `tests/test_intake_task.py`, `tests/test_prompts.py`, `tests/test_conversation_controller.py`, `tests/test_agent.py`, `tests/test_ghl_service.py`, `tests/test_sms_service.py`, `tests/test_phone_utils.py`, `tests/test_after_hours_gate.py`, and `tests/test_call_lifecycle.py`
+Completed capability surfaces include:
 
-Remaining milestone work is **S06 only**: full-suite verification/demo readiness, live provider/UAT proof, and final documentation/readiness closure.
+- Typed domain/config contracts (`BusinessConfig`, `CallIntakeRecord`, slot/classification enums) and validated config loading
+- Adaptive intake runtime (`SlotTracker`, `IntakePolicy`, `IntakeTask`) with live classification
+- Safety-first controller handoff (`HVACIntakeAgent` → `SafetyAgent`) and deterministic prompt surfaces
+- GoHighLevel + Twilio integrations with typed/redacted failure diagnostics
+- Timezone-safe after-hours gate and idempotent lifecycle finalization with transcript assembly, caller-ID fallback, and provider isolation
+- Release-readiness contracts (`tests/test_s06_readiness.py`), bootstrap artifacts (`README.md`, `.env.example`, `pyproject.toml`), and fully green quality gates (`pytest`, Ruff check/format)
 
 ## Architecture / Key Patterns
 
-- Python, LiveKit Agents SDK ~1.4 with LiveKit Inference
-- Single `src/agent.py` entrypoint (required by Dockerfile)
-- Additional modules under `src/` alongside agent.py
-- AgentTask pattern for structured slot collection (LiveKit's task/workflow API)
-- Agent handoff for safety branch (interrupt normal intake, switch to SafetyAgent)
-- Background asyncio tasks for live classification and post-call CRM/SMS writes
-- Config-driven business settings (no hardcoded HVAC values in core logic)
-- Integration failures isolated — CRM/SMS errors do not crash the voice session
-- uv package manager; tests via pytest with pytest-asyncio
+- Python + LiveKit Agents SDK (~1.4) with AgentTask/function-tool workflow
+- `src/agent.py` as the runtime entrypoint
+- Config-driven behavior (business identity, hours, danger/urgency keywords, owner phone)
+- Lifecycle snapshot + structured event phases for post-call diagnostics
+- Integration failure isolation (CRM/SMS failures do not crash call finalization)
+- uv-managed environment; pytest + Ruff quality gates
 
 ## Capability Contract
 
-See `.gsd/REQUIREMENTS.md` for the explicit capability contract, requirement status, and coverage mapping.
+See `.gsd/REQUIREMENTS.md` for authoritative requirement status and proof mapping.
 
 ## Milestone Sequence
 
-- [ ] M001: HVAC After-Hours Voice Agent — In progress (S01-S05 complete): remaining work is S06 full-suite/demo readiness and live operational proof
+- [x] M001: HVAC After-Hours Voice Agent — implementation complete through S06; remaining operational follow-up is live credential-backed UAT evidence capture (outside deterministic CI/local gates).

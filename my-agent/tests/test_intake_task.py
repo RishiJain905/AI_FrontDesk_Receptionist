@@ -82,7 +82,11 @@ async def test_tentative_slot_requires_explicit_confirmation_before_completion(
             )
         )
 
-        assert_next_function_call(second_turn.expect, "confirm_slot")
+        assert_next_function_call(
+            second_turn.expect,
+            "confirm_slot",
+            "record_slot_candidate",
+        )
         assert_next_function_call(
             second_turn.expect,
             "confirm_slot",

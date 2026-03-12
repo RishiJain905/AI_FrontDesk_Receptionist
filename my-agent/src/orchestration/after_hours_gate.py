@@ -79,7 +79,9 @@ def _resolve_local_time(*, timezone_name: str, now: datetime | None) -> datetime
     return reference_time.astimezone(timezone_info)
 
 
-def is_after_hours(config: BusinessConfig, *, now: datetime | None = None) -> GateDecision:
+def is_after_hours(
+    config: BusinessConfig, *, now: datetime | None = None
+) -> GateDecision:
     """Evaluate whether ``now`` lands inside the configured after-hours window."""
 
     timezone_name = (config.timezone or "").strip()

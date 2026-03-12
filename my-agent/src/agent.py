@@ -63,7 +63,6 @@ _CALLER_ID_KEYS: tuple[str, ...] = (
 )
 
 
-
 def prewarm(proc: JobProcess):
     proc.userdata["vad"] = silero.VAD.load()
 
@@ -176,7 +175,9 @@ def _build_crm_service(*, client: httpx.AsyncClient) -> Any:
     return _NoopCrmService()
 
 
-def _build_alert_service(*, client: httpx.AsyncClient, business_config: BusinessConfig) -> Any:
+def _build_alert_service(
+    *, client: httpx.AsyncClient, business_config: BusinessConfig
+) -> Any:
     account_sid = _clean_text(os.getenv("TWILIO_ACCOUNT_SID"))
     auth_token = _clean_text(os.getenv("TWILIO_AUTH_TOKEN"))
     from_number = _clean_text(os.getenv("TWILIO_FROM_NUMBER"))
@@ -218,7 +219,9 @@ async def my_agent(ctx: JobContext):
 
     runtime_config = load_config()
     gate_decision = is_after_hours(runtime_config)
-    gate_mode = "after_hours" if gate_decision.is_after_hours else "outside_hours_passthrough"
+    gate_mode = (
+        "after_hours" if gate_decision.is_after_hours else "outside_hours_passthrough"
+    )
     log_lifecycle_event(
         lifecycle_logger,
         phase="gate_checked",

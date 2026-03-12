@@ -135,7 +135,9 @@ class HVACIntakeAgent(IntakeTask):
         )
         self._normal_tools = self.tools
         self._handoff_only_tools = [
-            tool for tool in self._normal_tools if getattr(tool.info, "name", None) == "handoff_to_safety"
+            tool
+            for tool in self._normal_tools
+            if getattr(tool.info, "name", None) == "handoff_to_safety"
         ]
 
     async def on_enter(self) -> None:

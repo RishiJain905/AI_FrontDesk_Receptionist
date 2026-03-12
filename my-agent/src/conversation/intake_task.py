@@ -34,7 +34,9 @@ _ADDRESS_RE = re.compile(
     r"\b(?P<prefix>i think the address is|the address is|address is)\s+(?P<address>.+?)(?=\.|$)",
     flags=re.IGNORECASE,
 )
-_CONFIRMATION_RE = re.compile(r"\b(?:yes|correct|that'?s right|confirmed)\b", flags=re.IGNORECASE)
+_CONFIRMATION_RE = re.compile(
+    r"\b(?:yes|correct|that'?s right|confirmed)\b", flags=re.IGNORECASE
+)
 
 
 class ProposedActionType(str, Enum):
@@ -98,7 +100,9 @@ class IntakeTask(AgentTask[IntakeTaskResult]):
             part for part in [self._cumulative_transcript, transcript] if part
         )
         if self._cumulative_transcript:
-            self._classification = self._classifier.classify(self._cumulative_transcript)
+            self._classification = self._classifier.classify(
+                self._cumulative_transcript
+            )
 
         proposed_actions = self._propose_actions(transcript)
         await self.update_instructions(
@@ -141,7 +145,11 @@ class IntakeTask(AgentTask[IntakeTaskResult]):
 
         normalized_value = self._coerce_slot_value(slot_name, value)
         current = self._tracker.snapshot().get(slot_name)
-        if current and current.status == SlotStatus.CONFIRMED and current.value == normalized_value:
+        if (
+            current
+            and current.status == SlotStatus.CONFIRMED
+            and current.value == normalized_value
+        ):
             return self._guard_summary(prefix=f"{slot_name} already confirmed")
 
         current = self._tracker.snapshot().get(slot_name)
@@ -181,7 +189,9 @@ class IntakeTask(AgentTask[IntakeTaskResult]):
             value: Optional corrected replacement value. Omit when confirming the existing candidate as-is.
         """
 
-        normalized_value = None if value is None else self._coerce_slot_value(slot_name, value)
+        normalized_value = (
+            None if value is None else self._coerce_slot_value(slot_name, value)
+        )
         self._tracker.confirm(slot_name, normalized_value)
         return self._guard_summary(prefix=f"confirmed {slot_name}")
 
@@ -229,7 +239,9 @@ class IntakeTask(AgentTask[IntakeTaskResult]):
         tentative_slots = self._tentative_required_slots()
         slot_snapshot = self._format_snapshot(self._tracker.snapshot())
         action_lines = self._format_proposed_actions(proposed_actions or [])
-        response_requirements = self._build_response_requirements(proposed_actions or [])
+        response_requirements = self._build_response_requirements(
+            proposed_actions or []
+        )
         latest_turn_block = latest_user_turn or "<none>"
 
         return f"""
@@ -269,11 +281,11 @@ Current classification:
 - urgency_level: {self._classification.urgency_level}
 - issue_category: {self._classification.issue_category}
 - address_relevant: {self._classification.address_relevant}
-- matched_keywords: {', '.join(self._classification.matched_keywords) or '<none>'}
+- matched_keywords: {", ".join(self._classification.matched_keywords) or "<none>"}
 
-Current required slots: {', '.join(required_slots) or '<none>'}
-Missing required slots: {', '.join(missing_slots) or '<none>'}
-Tentative required slots needing confirmation: {', '.join(tentative_slots) or '<none>'}
+Current required slots: {", ".join(required_slots) or "<none>"}
+Missing required slots: {", ".join(missing_slots) or "<none>"}
+Tentative required slots needing confirmation: {", ".join(tentative_slots) or "<none>"}
 Current slot snapshot: {slot_snapshot}
 Latest user turn: {latest_turn_block}
 
@@ -467,22 +479,30 @@ Required content for your next assistant message after tool calls:
         if tentative_slots:
             guidance_parts.append(
                 "ask the caller to explicitly confirm "
-                + ", ".join(self._slot_prompt_label(slot_name) for slot_name in tentative_slots)
+                + ", ".join(
+                    self._slot_prompt_label(slot_name) for slot_name in tentative_slots
+                )
             )
         if missing_slots:
             guidance_parts.append(
                 "ask for all missing required slots in one reply: "
-                + ", ".join(self._slot_prompt_label(slot_name) for slot_name in missing_slots)
+                + ", ".join(
+                    self._slot_prompt_label(slot_name) for slot_name in missing_slots
+                )
             )
         issue_slot = self._tracker.snapshot().get("issue_category")
         if issue_slot and issue_slot.status == SlotStatus.CONFIRMED:
-            guidance_parts.append("do not ask the caller to confirm the reported issue again")
+            guidance_parts.append(
+                "do not ask the caller to confirm the reported issue again"
+            )
         if not missing_slots and not tentative_slots and self._completion_requested:
             guidance_parts.append(
                 "say the previously tentative details are now confirmed, intake is complete, and summarize the issue succinctly"
             )
 
-        next_reply = "; ".join(guidance_parts) if guidance_parts else "no extra reply guidance"
+        next_reply = (
+            "; ".join(guidance_parts) if guidance_parts else "no extra reply guidance"
+        )
         return (
             f"{prefix}. required={required_slots}; missing={missing_slots}; "
             f"tentative={tentative_slots}; all_required_confirmed={self._all_required_confirmed()}; "
@@ -565,15 +585,23 @@ Required content for your next assistant message after tool calls:
                 )
 
         if same_turn_tentative_slots:
-            labels = ", ".join(self._slot_prompt_label(slot_name) for slot_name in same_turn_tentative_slots)
+            labels = ", ".join(
+                self._slot_prompt_label(slot_name)
+                for slot_name in same_turn_tentative_slots
+            )
             lines.append(
                 "- Do NOT call confirm_slot for these values on this same turn because they were just "
                 f"recorded as tentative and still need explicit caller confirmation: {labels}."
             )
 
         predicted_snapshot = self._snapshot_after_actions(actions)
-        if self._all_required_confirmed_for_snapshot(predicted_snapshot) and not self._completion_requested:
-            lines.append("- After tool calls, call complete_intake() before your assistant message.")
+        if (
+            self._all_required_confirmed_for_snapshot(predicted_snapshot)
+            and not self._completion_requested
+        ):
+            lines.append(
+                "- After tool calls, call complete_intake() before your assistant message."
+            )
         else:
             lines.append(
                 "- After tool calls, do not call complete_intake unless every currently required slot "
@@ -592,7 +620,8 @@ Required content for your next assistant message after tool calls:
         tentative_slots = [
             slot_name
             for slot_name in required_slots
-            if predicted_snapshot.get(slot_name, SlotState()).status == SlotStatus.FILLED
+            if predicted_snapshot.get(slot_name, SlotState()).status
+            == SlotStatus.FILLED
         ]
 
         acknowledgements: list[str] = []
@@ -615,13 +644,17 @@ Required content for your next assistant message after tool calls:
             )
 
         if tentative_slots:
-            labels = ", ".join(self._slot_prompt_label(slot_name) for slot_name in tentative_slots)
+            labels = ", ".join(
+                self._slot_prompt_label(slot_name) for slot_name in tentative_slots
+            )
             lines.append(
                 f"- Do NOT say intake is complete. Explicitly ask the caller to confirm every tentative required slot: {labels}."
             )
 
         if missing_slots:
-            labels = ", ".join(self._slot_prompt_label(slot_name) for slot_name in missing_slots)
+            labels = ", ".join(
+                self._slot_prompt_label(slot_name) for slot_name in missing_slots
+            )
             lines.append(
                 "- Ask for ALL still-missing required slots in the same reply, not just one of them: "
                 f"{labels}."
@@ -632,7 +665,9 @@ Required content for your next assistant message after tool calls:
             issue_text = None
             if issue_slot and issue_slot.value is not None:
                 issue_text = str(issue_slot.value)
-            if any(action.action_type == ProposedActionType.CONFIRM for action in actions):
+            if any(
+                action.action_type == ProposedActionType.CONFIRM for action in actions
+            ):
                 lines.append(
                     "- Explicitly say the previously tentative details are now confirmed and intake is complete."
                 )
@@ -648,7 +683,9 @@ Required content for your next assistant message after tool calls:
         lines.append("- Do not re-ask for any slot that is already confirmed.")
         return "\n".join(lines)
 
-    def _snapshot_after_actions(self, actions: list[ProposedAction]) -> dict[str, SlotState]:
+    def _snapshot_after_actions(
+        self, actions: list[ProposedAction]
+    ) -> dict[str, SlotState]:
         snapshot = self._tracker.snapshot()
         for action in actions:
             state = snapshot.setdefault(action.slot_name, SlotState())
@@ -689,7 +726,9 @@ Required content for your next assistant message after tool calls:
             issue_category=issue_category,
         )
 
-    def _all_required_confirmed_for_snapshot(self, snapshot: dict[str, SlotState]) -> bool:
+    def _all_required_confirmed_for_snapshot(
+        self, snapshot: dict[str, SlotState]
+    ) -> bool:
         required_slots = self._required_slots_for_snapshot(snapshot)
         return all(
             snapshot.get(slot_name, SlotState()).status == SlotStatus.CONFIRMED

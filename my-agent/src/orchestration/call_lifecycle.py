@@ -180,7 +180,9 @@ class CallLifecycle:
         )
 
     def _resolve_call_status(self) -> CallStatus:
-        intake_summary = getattr(self._controller, "last_completed_intake_summary", None)
+        intake_summary = getattr(
+            self._controller, "last_completed_intake_summary", None
+        )
         if intake_summary is None:
             return CallStatus.PARTIAL
 
@@ -196,7 +198,9 @@ class CallLifecycle:
         transcript: str,
         final_classification: FinalClassification,
     ) -> CallIntakeRecord:
-        intake_summary = getattr(self._controller, "last_completed_intake_summary", None)
+        intake_summary = getattr(
+            self._controller, "last_completed_intake_summary", None
+        )
 
         callback_number, callback_confirmed = _resolved_callback_number(intake_summary)
         used_caller_id_fallback = False
@@ -320,7 +324,10 @@ def _resolved_callback_number(intake_summary: Any | None) -> tuple[str | None, b
         return None, False
 
     value = _clean_text(getattr(slot_state, "value", None))
-    is_confirmed = getattr(slot_state, "status", None) == SlotStatus.CONFIRMED and value is not None
+    is_confirmed = (
+        getattr(slot_state, "status", None) == SlotStatus.CONFIRMED
+        and value is not None
+    )
 
     return value, is_confirmed
 

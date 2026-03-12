@@ -6,9 +6,17 @@ from conversation.conversation_controller import (
     HandoffState,
     SafetyAgent,
 )
-from conversation.intake_policy import IntakeMode, get_required_slots, should_collect_address
+from conversation.intake_policy import (
+    IntakeMode,
+    get_required_slots,
+    should_collect_address,
+)
 from conversation.intake_task import IntakeTask, IntakeTaskResult
-from conversation.prompts import CLOSING_INSTRUCTIONS, SAFETY_INSTRUCTIONS, build_system_prompt
+from conversation.prompts import (
+    CLOSING_INSTRUCTIONS,
+    SAFETY_INSTRUCTIONS,
+    build_system_prompt,
+)
 from conversation.slot_tracker import SlotTracker
 
 __all__ = [

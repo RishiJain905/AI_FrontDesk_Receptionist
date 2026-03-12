@@ -69,7 +69,7 @@ This milestone is complete only when all are true:
 - [x] **S05: Call Lifecycle Orchestration and After-Hours Gate** `risk:medium` `depends:[S02,S03,S04]`
   > After this: Full call lifecycle runs start-to-finish: after-hours gate → intake → finalize → CRM write → SMS if needed; partial calls (hang-up) produce callStatus=partial records; after-hours gate unit tests pass at midnight-crossing boundaries; `src/agent.py` is the wired entrypoint.
 
-- [ ] **S06: Full Test Suite and Demo Readiness** `risk:low` `depends:[S05]`
+- [x] **S06: Full Test Suite and Demo Readiness** `risk:low` `depends:[S05]`
   > After this: `uv run pytest` passes all tests covering: normal intake, partial call, safety branch, no-heat urgency, missing fields, outside-hours gate, CRM failure isolation, SMS failure isolation; ruff checks pass; README updated with usage instructions.
 
 ## Boundary Map

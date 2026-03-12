@@ -111,8 +111,8 @@ This file is the explicit capability and coverage contract for the project.
 - Source: inferred (from AGENTS.md TDD requirement and livekit-agents skill)
 - Primary owning slice: M001/S06
 - Supporting slices: all
-- Validation: unmapped
-- Notes: Tests must run with `uv run pytest`. No test file = no done.
+- Validation: `uv run pytest tests/test_s06_readiness.py tests/test_call_lifecycle.py::test_lifecycle_records_structured_provider_failures_without_blocking_other_provider && uv run pytest && uv run ruff check src/ && uv run ruff format --check src/` — proves readiness artifacts stay enforced, the full 131-test behavior matrix (normal intake, safety branch, partial call, missing fields, CRM write, SMS logic, gate/failure isolation) remains green, and source-quality gates are repeatably clean at slice closure
+- Notes: Full S06 closure also requires source-quality gates (`uv run ruff check src/`, `uv run ruff format --check src/`) alongside the pytest evidence above.
 
 ## Deferred
 
@@ -197,7 +197,7 @@ This file is the explicit capability and coverage contract for the project.
 | R007 | core-capability | active | M001/S05 | none | `uv run pytest tests/test_after_hours_gate.py tests/test_agent.py tests/test_types.py` — timezone-safe gate math across midnight, strict after-hours config validation, and entrypoint gate wiring |
 | R008 | quality-attribute | active | M001/S01 | all | `tests/test_types.py` config contract + loader validation (partial) |
 | R009 | failure-visibility | active | M001/S05 | S04 | `uv run pytest tests/test_call_lifecycle.py tests/test_agent.py` — partial-call finalize path, caller-ID fallback semantics, finalize-once guard, and CRM/SMS failure isolation |
-| R010 | quality-attribute | active | M001/S06 | all | unmapped |
+| R010 | quality-attribute | active | M001/S06 | all | `uv run pytest tests/test_s06_readiness.py tests/test_call_lifecycle.py::test_lifecycle_records_structured_provider_failures_without_blocking_other_provider && uv run pytest && uv run ruff check src/ && uv run ruff format --check src/` — readiness-contract tests + full-suite pass + source-quality gates provide repeatable S06 closure evidence |
 | R020 | integration | deferred | none | none | unmapped |
 | R021 | core-capability | deferred | none | none | unmapped |
 | R022 | core-capability | deferred | none | none | unmapped |
@@ -209,5 +209,5 @@ This file is the explicit capability and coverage contract for the project.
 
 - Active requirements: 10
 - Mapped to slices: 10
-- Validated: 8
+- Validated: 9
 - Unmapped active requirements: 0

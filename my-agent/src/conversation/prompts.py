@@ -26,8 +26,12 @@ def build_system_prompt(config: BusinessConfig = HVAC_DEMO_CONFIG) -> str:
     """Return the top-level controller prompt for after-hours HVAC calls."""
 
     business_name = config.business_name or "the HVAC company"
-    assistant_name = getattr(config, "assistant_name", None) or "the after-hours assistant"
-    dispatcher_name = getattr(config, "dispatcher_name", None) or "the on-call technician"
+    assistant_name = (
+        getattr(config, "assistant_name", None) or "the after-hours assistant"
+    )
+    dispatcher_name = (
+        getattr(config, "dispatcher_name", None) or "the on-call technician"
+    )
     service_area = config.service_area or "the local service area"
 
     return (

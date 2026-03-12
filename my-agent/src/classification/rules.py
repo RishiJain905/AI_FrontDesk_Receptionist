@@ -69,7 +69,9 @@ def find_keywords(text: str, keywords: list[str] | tuple[str, ...]) -> tuple[str
     )
 
 
-def first_match(label: str, text: str, keywords: list[str] | tuple[str, ...]) -> RuleMatch | None:
+def first_match(
+    label: str, text: str, keywords: list[str] | tuple[str, ...]
+) -> RuleMatch | None:
     """Return a rule match only when at least one keyword matched."""
 
     matched_keywords = find_keywords(text, keywords)
@@ -78,7 +80,9 @@ def first_match(label: str, text: str, keywords: list[str] | tuple[str, ...]) ->
     return RuleMatch(label=label, matched_keywords=matched_keywords)
 
 
-def detect_danger(text: str, safety_keywords: list[str]) -> tuple[DangerType, tuple[str, ...]]:
+def detect_danger(
+    text: str, safety_keywords: list[str]
+) -> tuple[DangerType, tuple[str, ...]]:
     """Classify explicit safety hazards using config-seeded vocabulary first."""
 
     normalized = normalize_text(text)
@@ -89,7 +93,9 @@ def detect_danger(text: str, safety_keywords: list[str]) -> tuple[DangerType, tu
     if any(normalize_text(keyword) in normalized for keyword in _GAS_KEYWORDS):
         return DangerType.GAS_LEAK, tuple(configured_matches or ("gas",))
     if any(normalize_text(keyword) in normalized for keyword in _CO_KEYWORDS):
-        return DangerType.CARBON_MONOXIDE, tuple(configured_matches or ("carbon monoxide",))
+        return DangerType.CARBON_MONOXIDE, tuple(
+            configured_matches or ("carbon monoxide",)
+        )
     if any(normalize_text(keyword) in normalized for keyword in _ELECTRICAL_KEYWORDS):
         return DangerType.ELECTRICAL_HAZARD, tuple(configured_matches or ("smoke",))
     if any(normalize_text(keyword) in normalized for keyword in _FLOODING_KEYWORDS):
