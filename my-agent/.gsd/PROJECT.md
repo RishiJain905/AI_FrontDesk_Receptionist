@@ -10,16 +10,17 @@ After-hours callers get a natural, safety-aware intake flow that avoids repetiti
 
 ## Current State
 
-**All M001 implementation slices (S01–S06) are complete.**
+**M001 implementation is complete through S06 and all deterministic quality gates are green.**
 
-Completed capability surfaces include:
+Fresh verification evidence in this completion unit:
 
-- Typed domain/config contracts (`BusinessConfig`, `CallIntakeRecord`, slot/classification enums) and validated config loading
-- Adaptive intake runtime (`SlotTracker`, `IntakePolicy`, `IntakeTask`) with live classification
-- Safety-first controller handoff (`HVACIntakeAgent` → `SafetyAgent`) and deterministic prompt surfaces
-- GoHighLevel + Twilio integrations with typed/redacted failure diagnostics
-- Timezone-safe after-hours gate and idempotent lifecycle finalization with transcript assembly, caller-ID fallback, and provider isolation
-- Release-readiness contracts (`tests/test_s06_readiness.py`), bootstrap artifacts (`README.md`, `.env.example`, `pyproject.toml`), and fully green quality gates (`pytest`, Ruff check/format)
+- `uv run pytest` → `131 passed`
+- `uv run ruff check src/ tests/` → pass
+- `uv run ruff format --check src/` → pass
+
+Remaining gap to mark milestone verification fully passed:
+
+- Live credential-backed operational proof for real GoHighLevel contact/note creation and real Twilio SMS delivery (tracked as post-slice UAT follow-up).
 
 ## Architecture / Key Patterns
 
@@ -36,4 +37,4 @@ See `.gsd/REQUIREMENTS.md` for authoritative requirement status and proof mappin
 
 ## Milestone Sequence
 
-- [x] M001: HVAC After-Hours Voice Agent — implementation complete through S06; remaining operational follow-up is live credential-backed UAT evidence capture (outside deterministic CI/local gates).
+- [x] M001: HVAC After-Hours Voice Agent — implementation complete; deterministic gates pass; live provider UAT evidence still required for full operational verification closure.
