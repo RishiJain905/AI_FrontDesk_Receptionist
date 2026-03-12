@@ -1135,6 +1135,24 @@
       "toolCalls": 0,
       "assistantMessages": 26,
       "userMessages": 0
+    },
+    {
+      "type": "complete-milestone",
+      "id": "M001",
+      "model": "gpt-5.3-codex",
+      "startedAt": 1773274669156,
+      "finishedAt": 1773274862916,
+      "tokens": {
+        "input": 53314,
+        "output": 7749,
+        "cacheRead": 1181568,
+        "cacheWrite": 0,
+        "total": 1242631
+      },
+      "cost": 0,
+      "toolCalls": 0,
+      "assistantMessages": 25,
+      "userMessages": 0
     }
   ]
 }
