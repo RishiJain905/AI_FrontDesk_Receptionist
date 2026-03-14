@@ -1,0 +1,4 @@
+## 2024-05-30 - Leaked API Identifier in Exception Handling
+**Vulnerability:** The codebase uses `httpx` to send HTTP requests to Twilio. When an HTTP error occurs, the `except httpx.HTTPError as exc` block raises a custom `SmsError` that includes `str(exc)` and `path: self._messages_path` in its detail mapping. Both of these strings can inadvertently expose the Twilio Account SID, which is a sensitive identifier that should not be logged or exposed to end users.
+**Learning:** `httpx.HTTPError` stringifications often include the full request URL, and custom path properties might include sensitive components (like Account SIDs). Error handling layers must actively sanitize these inputs before persisting them to logs or re-raising them as API details.
+**Prevention:** Mask sensitive identifiers from both the exception string representation (`str(exc)`) and any statically injected context paths before assigning them to error detail payloads.
