@@ -7,7 +7,7 @@ slots.
 
 from __future__ import annotations
 
-from copy import deepcopy
+from dataclasses import replace
 from typing import Any
 
 from hvac_types.slot_state import SlotState, SlotStatus
@@ -46,7 +46,7 @@ class SlotTracker:
         slot.status = SlotStatus.FILLED
         slot.value = value
         slot.confidence = confidence
-        return deepcopy(slot)
+        return replace(slot)
 
     def confirm(self, slot_name: str, value: Any | None = None) -> SlotState:
         """Mark a slot as caller-confirmed.
@@ -64,7 +64,7 @@ class SlotTracker:
             raise ValueError(msg)
         slot.status = SlotStatus.CONFIRMED
         slot.confidence = None
-        return deepcopy(slot)
+        return replace(slot)
 
     def reject(self, slot_name: str) -> SlotState:
         """Clear a slot back to the missing state."""
@@ -73,12 +73,12 @@ class SlotTracker:
         slot.status = SlotStatus.EMPTY
         slot.value = None
         slot.confidence = None
-        return deepcopy(slot)
+        return replace(slot)
 
     def snapshot(self) -> dict[str, SlotState]:
         """Return a detached copy of the full slot state."""
 
-        return {slot_name: deepcopy(state) for slot_name, state in self._slots.items()}
+        return {slot_name: replace(state) for slot_name, state in self._slots.items()}
 
     def get_missing_slots(self) -> list[str]:
         """Return required slots that are still empty."""
