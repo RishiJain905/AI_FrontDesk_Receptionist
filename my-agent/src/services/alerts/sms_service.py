@@ -72,18 +72,22 @@ class TwilioSmsService(AlertService):
                 auth=(self._account_sid, self._auth_token),
             )
         except httpx.HTTPError as exc:
+            # 🛡️ Sentinel: Do not leak the Account SID (which is part of the path) in error details
+            # Also mask the exception string since httpx.HTTPError might include the full URL
+            error_str = str(exc).replace(self._account_sid, "[REDACTED]")
             raise SmsError(
                 service="twilio",
                 operation="send_sms",
-                detail={"error": str(exc), "path": self._messages_path},
+                detail={"error": error_str, "path": self._safe_messages_path},
             ) from exc
 
         if response.status_code >= 400:
+            # 🛡️ Sentinel: Do not leak the Account SID (which is part of the path) in error details
             raise SmsError(
                 service="twilio",
                 operation="send_sms",
                 status_code=response.status_code,
-                detail=_build_failure_detail(response, path=self._messages_path),
+                detail=_build_failure_detail(response, path=self._safe_messages_path),
             )
 
         return True
@@ -91,6 +95,11 @@ class TwilioSmsService(AlertService):
     @property
     def _messages_path(self) -> str:
         return f"/2010-04-01/Accounts/{self._account_sid}/Messages.json"
+
+    @property
+    def _safe_messages_path(self) -> str:
+        """Return a path with sensitive credentials redacted for safe error reporting."""
+        return "/2010-04-01/Accounts/[REDACTED]/Messages.json"
 
     @property
     def _messages_url(self) -> str:
